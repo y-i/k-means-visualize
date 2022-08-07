@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./main.js" defer type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.6.1/d3.min.js" integrity="sha512-MefNfAGJ/pEy89xLOFs3V6pYPs6AmUhXJrRlydI/9wZuGrqxmrdQ80zKHUcyadAcpH67teDZcBeS6oMJLPtTqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            width: calc(100vw - 16px);
+            height: calc(100vh - 16px);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            margin: 8px;
+        }
+        #d3 {
+            width: calc(100%-40px);
+            flex-grow: 1;
+            box-sizing: border-box;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="inputs">
+        <button id="nextBtn">Next</button>
+        <button id="autoBtn">Auto</button>
+        <label>n=<input type="number" id="n" style="width: 5ch;" value="200"/></label>
+        <label>k=<input type="number" id="k" style="width: 5ch;" value="10"/></label>
+        <button id="changeNumberBtn">数を変更</button>
+        <button id="changeCenterBtn">重心を変更</button>
+    </div>
+    <div id="d3"></div>
+</body>
+</html>
