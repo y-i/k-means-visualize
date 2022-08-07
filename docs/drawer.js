@@ -20,9 +20,9 @@ export class Drawer {
   /**
    * @param {number[][]} pos
    * @param {number[]} label
-   * @param {number[][]} gs
+   * @param {number[][]} centers
    */
-  draw(pos, label, gs) {
+  draw(pos, label, centers) {
     this.#svg.selectAll("rect").remove();
     this.#svg.selectAll("circle").remove();
 
@@ -32,25 +32,24 @@ export class Drawer {
     const yScale = d3.scaleLinear().domain([-5, 105]).range([height, 0]);
     const colorCategoryScale = this.#colorCategoryScale;
 
-    const data = [];
-    for (let i = 0; i < pos.length; ++i) {
-      data.push([
-        pos[i][0],
-        pos[i][1],
-        label[i],
-        this.#oldLabels.length > 0 && label[i] != this.#oldLabels[i],
-      ]);
-    }
-    const dataOldG = [];
-    for (let i = 0; i < this.#oldCenters.length; ++i) {
-      dataOldG.push([this.#oldCenters[i][0], this.#oldCenters[i][1], i]);
-    }
-    const dataG = [];
-    for (let i = 0; i < gs.length; ++i) {
-      dataG.push([gs[i][0], gs[i][1], i]);
-    }
+    const data = pos.map((p, idx) => [
+      p[0],
+      p[1],
+      label[idx],
+      this.#oldLabels.length > 0 && label[idx] != this.#oldLabels[idx],
+    ]);
+    const oldCenterData = this.#oldCenters.map((oldCenter, idx) => [
+      oldCenter[0],
+      oldCenter[1],
+      idx,
+    ]);
+    const centerData = centers.map((center, idx) => [
+      center[0],
+      center[1],
+      idx,
+    ]);
 
-    // points
+    // Points
     this.#svg
       .selectAll("points")
       .data(data)
@@ -74,7 +73,7 @@ export class Drawer {
     // OldCenters
     this.#svg
       .selectAll("oldCenters")
-      .data(dataOldG)
+      .data(oldCenterData)
       .enter()
       .append("rect")
       .attr("x", function (d) {
@@ -94,7 +93,7 @@ export class Drawer {
     // CurrentCenters
     this.#svg
       .selectAll("currentCenters")
-      .data(dataG)
+      .data(centerData)
       .enter()
       .append("rect")
       .attr("x", function (d) {
@@ -112,7 +111,7 @@ export class Drawer {
       });
 
     this.#oldLabels = structuredClone(label);
-    this.#oldCenters = structuredClone(gs);
+    this.#oldCenters = structuredClone(centers);
   }
 
   reset() {
