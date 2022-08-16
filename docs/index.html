@@ -25,13 +25,17 @@
     </style>
 </head>
 <body>
-    <div id="inputs">
-        <button id="nextBtn">Next</button>
-        <button id="autoBtn">Auto</button>
-        <label>n=<input type="number" id="n" style="width: 5ch;" value="200"/></label>
-        <label>k=<input type="number" id="k" style="width: 5ch;" value="10"/></label>
-        <button id="changeNumberBtn">数を変更</button>
-        <button id="changeCenterBtn">重心を変更</button>
+    <div>
+        <form id="inputs">
+            <button id="nextBtn">Next</button>
+            <button id="autoBtn">Auto</button>
+            <label>n=<input type="number" id="n" style="width: 5ch;" value="200"/></label>
+            <label>k=<input type="number" id="k" style="width: 5ch;" value="10"/></label>
+            <label><input type="radio" name="impl" value="k-means" checked>k-means</label>
+            <label><input type="radio" name="impl" value="k-means-plus-plus">k-means++</label>
+            <button id="changeParamsBtn">パラメーターを変更</button>
+            <button id="changeCenterBtn">重心を変更</button>
+        </form>
     </div>
     <div id="d3"></div>
 </body>

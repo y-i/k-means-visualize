@@ -1,7 +1,7 @@
 import { Drawer } from "./drawer.js";
 import { KMeans } from "./kmeans.js";
 
-const kmeans = new KMeans(200, 10);
+const kmeans = new KMeans(200, 10, false);
 const drawer = new Drawer();
 
 let cnt = 0;
@@ -40,20 +40,25 @@ autoBtn.addEventListener("click", () => {
     }
   }, 1000);
 });
-const changeNumberBtn = document.getElementById("changeNumberBtn");
-changeNumberBtn.addEventListener("click", () => {
+const changeParamsBtn = document.getElementById("changeParamsBtn");
+changeParamsBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
   drawer.reset();
 
   const n = Number(document.getElementById("n").value);
   const k = Number(document.getElementById("k").value);
-  kmeans.resetNumbers(n, k);
+  const implValue = document.getElementById("inputs").impl.value;
+  kmeans.resetParams(n, k, implValue === "k-means-plus-plus");
   drawer.draw(kmeans.pos, kmeans.label, kmeans.centers);
 
   cnt = 0;
   nextBtn.disabled = false;
 });
 const changeCenterBtn = document.getElementById("changeCenterBtn");
-changeCenterBtn.addEventListener("click", () => {
+changeCenterBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
   drawer.reset();
 
   kmeans.resetCenters();
